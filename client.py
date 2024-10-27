@@ -195,7 +195,6 @@ def setup_gui():
     button_style = {"padx": 10, "pady": 5, "font": ("Arial", 12)}
 
     download_button = tk.Button(button_frame, text="Download File", **button_style)
-    download_button.pack_forget()
 
     selected_file = tk.StringVar()
 

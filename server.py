@@ -65,15 +65,6 @@ def handle_client(connection):
             else:
                 connection.send(b"File not found")
 
-        elif command == "DELETE":
-            file_path = f"server_files/{filename}"
-
-            if os.path.exists(file_path):
-                os.remove(file_path)
-                connection.send(b"File deleted successfully")
-            else:
-                connection.send(b"File not found")
-
         elif command == "LIST":
             files = os.listdir("server_files/")
             if files:
@@ -93,7 +84,7 @@ def handle_client(connection):
         connection.close()
 
 def start_server(host='172.28.93.80', port=5000):
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #TCP
     server_socket.bind((host, port))
     server_socket.listen()
 
