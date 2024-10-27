@@ -108,7 +108,6 @@ def download_file(server_address, console, filename, download_button, progress_b
             while True:
                 data = client_socket.recv(1024)
                 if b"<EOF>" in data:  # End of file signal
-                    console.insert(tk.END, f"{data}\n")
                     break
                 f.write(data)
                 total_received += len(data)
@@ -150,7 +149,7 @@ def list_files(server_address, console, button_frame, download_button, selected_
         for filename in files.split("\n"):
             if filename.strip():  # Ignore empty lines
                 label = tk.Label(console, text=filename, fg="blue", cursor="hand2")
-                label.bind("<Button-1>", lambda e, fname=filename: select_file(fname, button_frame, download_button, selected_file))
+                label.bind("<Button-1>", lambda e, fname=filename: select_file(fname, download_button, selected_file))
                 console.window_create(tk.END, window=label)
                 console.insert(tk.END, "\n")
     except Exception as e:
@@ -159,7 +158,7 @@ def list_files(server_address, console, button_frame, download_button, selected_
         client_socket.close()
 
 # Function to select a file and show the download button
-def select_file(filename, button_frame, download_button, selected_file):
+def select_file(filename, download_button, selected_file):
     selected_file.set(filename)
     download_button.pack(side=tk.LEFT, padx=10)  # Show download button
 
@@ -170,7 +169,7 @@ def setup_gui():
     root.geometry("600x400")
 
     # Server address (can be customized)
-    server_address = ("localhost", 5000)
+    server_address = ("172.28.93.80", 5000)
 
     # Create a frame for the buttons
     button_frame = tk.Frame(root)
