@@ -27,7 +27,7 @@ def send_file(server_address, console, progress_bar, upload_button, list_button,
     progress_bar["maximum"] = file_size  # Set the progress bar maximum to the file size
 
     try:
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # TCP
         client_socket.connect(server_address)
 
         # Use `quote` to encode the file name to handle spaces and special characters
@@ -143,6 +143,11 @@ def list_files(server_address, console, button_frame, download_button, selected_
         client_socket.send(b"LIST")
         
         files = client_socket.recv(4096).decode()
+
+        if files == "No files available":
+            console.insert(tk.END, "No files available on the server.\n")
+            return
+
         console.insert(tk.END, "Available Files (click to select):\n")
 
         # Add clickable files
@@ -168,7 +173,7 @@ def setup_gui():
     root.title("File Transfer Client")
     root.geometry("600x400")
 
-    # Server address (can be customized)
+    # Server address
     server_address = ("172.28.93.80", 5000)
 
     # Create a frame for the buttons

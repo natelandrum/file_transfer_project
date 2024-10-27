@@ -92,7 +92,7 @@ def handle_client(connection):
     finally:
         connection.close()
 
-def start_server(host='0.0.0.0', port=5000):
+def start_server(host='172.28.93.80', port=5000):
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((host, port))
     server_socket.listen()
